@@ -10,6 +10,7 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,35 +19,42 @@
     <link rel="stylesheet" href="style.css">
     <style>
         .item {
-            width: 200px;
+            width: 300px;
+            border: 10px;
+            margin: auto;
         }
 
-        .item img{
+        .item img {
             width: 100%;
         }
-
     </style>
 
 </head>
+
 <body>
-<h1 class="header">檔案管理練習</h1>
-<!----建立上傳檔案表單及相關的檔案資訊存入資料表機制----->
-<?php
+    <h1 class="header">檔案管理練習</h1>
+    <!----建立上傳檔案表單及相關的檔案資訊存入資料表機制----->
+    <?php
 include_once "function.php";
-echo $_POST['name'];
-echo "<br>";
-dd($_FILES);
-if($_FILES['img']['error']==0){
-    move_uploaded_file($_FILES['img']['tmp_name'],"./files/".$_FILES['img']['name']);
+// echo $_POST['name'];
+// echo "<br>";
+// dd($_FILES);
+
+
+if(isset($_FILES['img'])){
+    if($_FILES['img']['error']==0){
+        move_uploaded_file($_FILES['img']['tmp_name'],"./files/".$_FILES['img']['name']);
+
 }else{
     echo "上傳失敗，請檢查檔案格式或大小是否符合規定";
 }
 
+}
 ?>
 
 
-<!----透過資料表來顯示檔案的資訊，並可對檔案執行更新或刪除的工作----->
-<?php
+    <!----透過資料表來顯示檔案的資訊，並可對檔案執行更新或刪除的工作----->
+    <?php
 
 $dirpath="./files";
 
@@ -57,11 +65,13 @@ $items=array_diff($items,array('.','..'));
 // 1. foreach
 // 2.div每個東西會佔滿畫面一整行
 // 3.img 會佔滿一個畫面
+
 foreach($items as $file){
     echo "<div class='item'>";
     echo "<img src='{$dirpath}/{$file}'>";
     echo "</div>";
 }
+
 
 
 
@@ -72,10 +82,11 @@ foreach($items as $file){
 
 
 
-<!----透過資料表來顯示檔案的資訊，並可對檔案執行更新或刪除的工作----->
+    <!----透過資料表來顯示檔案的資訊，並可對檔案執行更新或刪除的工作----->
 
 
 
 
 </body>
+
 </html>
